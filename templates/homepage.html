@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
+        <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
+    </div>
+    <div class="col-lg-12 mb-4">
+        {% for genre in genres %}
+        <a href="{{ url_for('homepage', list_type= genre.name ) }}" type="button" class="button1" data-toggle="button" aria-pressed="false" autocomplete="on">{{ genre.name }}</a>
+        {% endfor %}
+    </div>
+
+    <!-- <div class="col-lg-12 mb-4">
+    <a href="{{ url_for('homepage', list_type="top_rated") }}" class="btn btn-outline-secondary">Top Rated</a>
+    <a href="{{ url_for('homepage', list_type="upcoming") }}" class="btn btn-outline-secondary">Upcoming</a>
+    <a href="{{ url_for('homepage', list_type="popular") }}" class="btn btn-outline-secondary">Popular</a>
+    <a href="{{ url_for('homepage', list_type="now_playing") }}" class="btn btn-outline-secondary">Now Playing</a>
+    </div> -->
+    {% for movie in movies %}
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ tmdb_image_url(movie.poster_path, "w780") }}">
+            <div class="card-body">
+                <h4 class="card-title">{{ movie.title }}</h4>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ url_for('movie_details', movie_id=movie.id) }}">Pokaż więcej</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
